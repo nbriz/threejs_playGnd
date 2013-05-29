@@ -1,0 +1,117 @@
+	/*reset*/
+	html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;}
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {display: block;}
+	body {line-height: 1;}
+	ol, ul {list-style: none;}
+	blockquote, q {quotes: none;}
+	blockquote:before, blockquote:after,
+	q:before, q:after {content: '';content: none;}
+	table {border-collapse: collapse;border-spacing: 0;}
+	
+	/*boiler*/
+	html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+	html, button, input, select, textarea { font-family: sans-serif; color: #222; }
+	pre, code, kbd, samp { font-family: monospace, serif; _font-family: 'courier new', monospace; font-size: 1em; }
+	pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+	img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+	svg:not(:root) { overflow: hidden; }
+	td { vertical-align: top; }
+	
+	/* FORM FIXES: including allowing styling on iOS + pointer + consistency sizes/browsers + lots of other stuff */
+	button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; *overflow: visible; }
+	button[disabled], input[disabled] { cursor: default; }
+	input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; *width: 13px; *height: 13px; }
+	input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+	input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+	button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+	textarea { overflow: auto; vertical-align: top; resize: vertical; }
+
+	/*site specific*/
+
+    @font-face { font-family: LogoFont; src: url('fonts/ITCAvantGardePro-Bold.otf'); }
+
+
+    body { 
+    	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		-webkit-font-smoothing: antialiased;
+		color: #333;
+    	line-height: 26px; font-size: 16px;
+    	background: #fff;
+    }
+
+    ::-moz-selection { background: #e43f8c; color: #fff; text-shadow: none; }
+    ::selection { background: #e43f8c; color: #fff; text-shadow: none; }
+    
+
+    header {
+    	background-image: url('../texturez/dots.jpg'); 
+    	color:#f4f4f4; font-size: 64px; 
+		font-family: LogoFont,"Arial Black", "Arial Bold", Gadget, sans-serif;;
+		word-spacing: 3px;
+		margin-bottom: 50px;
+		padding: 40px 40px 55px 40px;
+		text-align: right;
+    }
+    #underscore{
+    	border-bottom: 10px solid #e43f8c;
+		padding-right: 19px;
+    }
+    #ball {
+		position: absolute;
+		top: -5px;
+		left: 30px;
+    }
+
+    h1 {
+		word-spacing: 3px;
+		font-size: 28px;
+		color: #5e594d;
+		text-transform: uppercase;
+		line-height: 1;
+		margin-bottom: 23px;
+    }
+
+    ul {
+    	margin:40px;
+    }
+/*
+    li{
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		color:#fff;
+		font-size: 52px;
+		padding: 31px;
+		background-color: #000;
+		margin-bottom: 2px;
+		width:520px;
+		cursor: pointer;
+    }
+    li:hover{
+    	background-color: #fff; color: #e43f8c;
+    }*/
+
+    li {
+    	/*margin-bottom: 70px;*/
+    }
+
+	a { 
+		text-decoration: none;  display: block;
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		color:#fff;
+		font-size: 28px;
+		padding: 31px;
+		background-color: #000;
+		margin-bottom: 2px;
+		width:520px;
+		cursor: pointer;
+	}
+	a:hover { 
+		background-color: #fff; color: #e43f8c;
+	}
+
+
+    @media only screen and (max-width: 640px) {
+	}
+
+
+
