@@ -63,7 +63,7 @@
 				var map = THREE.ImageUtils.loadTexture( 'texturez/blogo.gif' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
 
-				material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true, wireframeLinewidth: 2});
+				material = new THREE.MeshBasicMaterial({color: 0xffffff, wireframe: true, wireframeLinewidth: 2, opacity: 1});
 				mesh = new THREE.Mesh(geometry, material);
 				scene.add( mesh );
 
@@ -73,7 +73,7 @@
 
 			}
 
-			var o=0, inc=0.5;
+			var o=0, inc=0.05;
 			var oo=1, dec=0.05;
 			function draw() {
 

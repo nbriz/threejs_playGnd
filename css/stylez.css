@@ -75,24 +75,6 @@
     ul {
     	margin:40px;
     }
-/*
-    li{
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-		color:#fff;
-		font-size: 52px;
-		padding: 31px;
-		background-color: #000;
-		margin-bottom: 2px;
-		width:520px;
-		cursor: pointer;
-    }
-    li:hover{
-    	background-color: #fff; color: #e43f8c;
-    }*/
-
-    li {
-    	/*margin-bottom: 70px;*/
-    }
 
 	a { 
 		text-decoration: none;  display: block;
