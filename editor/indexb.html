@@ -182,6 +182,16 @@
 
 			}
 
+			#snip{
+				display: none;
+			}
+			#snip a{
+				text-decoration: underline;
+			}
+			#snip div {
+				display: inline-block;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -193,7 +203,26 @@
 		<div id="preview"></div>
 		<div id="editor"></div>
 		<div id="toolbar"></div>
-		<div id="popup"></div>
+		<div id="popup">
+			<div id="snip">
+
+				<a href="https://gist.github.com/nbriz/90cabdeb21ea2510c5ae" target="_blank"><div>
+					<img src="../images/snip1.gif"> <br> rotate mesh
+				</div></a>
+
+				<a href="https://gist.github.com/nbriz/41ba4223df04c3fa4abd" target="_blank"><div>
+					<img src="../images/snip2.gif"> <br> swing camera/mesh
+				</div></a>
+
+				<a href="https://gist.github.com/nbriz/65bca341f3b7eadb2874" target="_blank"><div>
+					<img src="../images/snip3.gif"> <br> camera lookAt mesh
+				</div></a>
+
+
+			</div>
+		</div>
+
+
 		<script>
 
 			window.URL = window.URL || window.webkitURL;
@@ -214,8 +243,7 @@
 
 			//
 
-			var defaultCode = decode( 'dVNNb5tAED3bv2LiXrBEFnqIVNk4UuW48aFVoyQSynHNDrAp7NLdxcip+t+7H9iuIwWBGHbezJt5M2RXdz/Xzy8PG6hN29xOs/CaZDVSZt+TrEVDoaip0mhWs96U119m3qHNoUFnTXaSHeCPsyY7WvyqlOwFuy5kI9UCPpX+Wnp3S1XFxQLS8Cn3qMpGDguoOWMo/Olflzw5Zs+SsZLMsQTiQvHOgFbFakZI8qoTUytE0nJBXvXs1gZ7xAfgOzRYGKneYc9gb094CRFcwQk94K5qYH4+oIzdo8lxd//9B2pNK4zmvgH37KmCgraoaAy6QIExKBQMFarl0V+htOKqQwwtNag4bayFul56/rIXheFSgNW976K5Fdhr5iJzWMHABZMD4UKgyjkzdQzbd8db5FVtgtRHdgsROMDz9nGzIb74x9EzVn9CEkv8xN8wgtylHr1MFn2LwhA3DkK7zqLXNW9YdGqQMNluGnQoF+XDghYX5A+odGel5Htce28EN2kMebKN4bO90zQ9koZo0knNnSTkzSa6SdMxt9f3IvWTO3H9TKdhoy4EZYoOZz0V/u5Rm6+C2ylY9zdlySIPOlV/6iwY0XGkY1cjLNCM4/KFBybv/W8psySssl1t97P9Aw==' );
-
+			var defaultCode = decode( 'pVRRb9owEH6GX3FlL0GiSfZQaaIUaWoZTNq0qu2E9jQ58RGbJXZ2dshg2n+f7QRaKu1pEcHm7vx95++zmV3cfbl9+na/AGGrcj6cdcNgJpBxNw5mFVoGuWBk0N6MGru5fDcKCWP3JfrZINN8D7/9bJCx/EdBulH8Mtelpim82YTnOqQrRoVUU0i7n3qHtCl1OwUhOUcVon88eHJEnyV9JzPP4ukCd06ytmAovxkJa+tpkmTEVIGUkTzECm1SsswkVhDi1nyvS7ZfKp5s+1BcSRVvzWjuiALU/D9R79BibjX9C3Q+9FuTG4jgAk7FLWZFCePnAON8iXaN2fLTZzSGFRiNgyj+3TGCnFVIbAImR4UTIFQcCen6mC9QO8NoP4GKWSTJSjdDI64D/6ZRuZVagfOyqaOxMy344Feu4QZaqbhuY6kU0lpyKyawehVeoSyE7ew7srsShS08rR4Wizg0/9Bn+u5PlbEjfpQHjGDtofss13lTobKxtzhmde2qb4UseXTaYMx1tSjRV/lVYVmnxRn5PZKpnZRyh7chG8FVOoF1sprAW/dJ0/RI2q2Oa22klyQ+OKCrNO2xg75n0I8+ctzP81eSQM2MRdjrxtmjOcKGdAVW4MmM5dePINwuhsPufJ9ZwYm1z04Q/mzQ2PdKOv9c+gO5NqNQBC+5HS3+qp3BQZFWWvGK2yjpdLTGua+anv3MiW4SHU9SL2avbddjf0oCbddmyL483v6CdhfTXVT/1/EX' );
 
 
 
@@ -363,7 +391,11 @@
 			buttonSnippets.addEventListener( 'click', function ( event ) {
 
 				var dom = document.createElement( 'div' );
-				dom.innerHTML = '...working on it';
+				dom.innerHTML = '';
+
+				var snip = document.getElementById( 'snip' );
+				snip.style.display = 'block';
+
 				dom.style.width = '400px';
 				dom.style.padding = '5px';
 				dom.style.marginTop = '20px';
@@ -374,6 +406,7 @@
 
 				dom.focus();
 				dom.select();
+
 
 			}, false );
 			menu.appendChild( buttonSnippets );
@@ -399,26 +432,40 @@
 			buttonArchive.textContent = 'archive_It';
 			buttonArchive.addEventListener( 'click', function ( event ) {
 
-				var savSketch = prompt("name your sketch","title-author");
-				if (savSketch!=null && savSketch!="") {
+				// HIDE SNIPPETS IF OPEN
+				var snip = document.getElementById( 'snip' );
+				snip.style.display = 'none';
 
-					var form = document.createElement( 'form' );
-					form.setAttribute("method","post");
-					form.setAttribute("action","archive.php");
+				var form = document.createElement( 'form' );
+				form.setAttribute("method","post");
+				form.setAttribute("action","archive.php");
+				form.setAttribute("name","form");
+				form.setAttribute("onsubmit","return validateForm()");
 
-					var dat = document.createElement('input');
-					form.appendChild( dat );
-					dat.setAttribute("name","sketchdata");
-					dat.value = encode( editor.getValue() );
+				var dat = document.createElement('input');
+				form.appendChild( dat );
+				dat.setAttribute("name","sketchdata");
+				dat.value = encode( editor.getValue() );
+				dat.style.display = "none";
 
-					var n = document.createElement('input');
-					form.appendChild( n );
-					n.setAttribute("name","name");
-					n.value = savSketch;
+				var n = document.createElement('input');
+				form.appendChild( n );
+				n.setAttribute("name","name");
+				n.value = "sketch name";
+				n.style.marginTop = "15px";
 
-				    form.submit();
+				var a = document.createElement('input');
+				form.appendChild( a );
+				a.setAttribute("name","author");
+				a.value = "your name";
 
-				}
+				var s = document.createElement('input');
+				form.appendChild( s );
+				s.setAttribute("type","submit");
+				s.value = "save";
+
+				popup.set( form );
+				popup.show();
 
 			}, false );
 			menu.appendChild( buttonArchive );
@@ -735,6 +782,14 @@
 			editor.setValue( defaultCode ); // --- this editor always shows template (reset on load)
 			//save();
 
+
+			// validation for 'archive_it'
+	        function validateForm() {
+	            var n=document.forms["form"]["name"].value;
+	            var a=document.forms["form"]["author"].value;
+	            if (n==null || n=="" || n=="sketch name") { alert("you forgot to name your sketch"); return false; }       
+	            if (a==null || a=="" || a=="your name") { alert("you forgot your name"); return false; }
+	        }
 
 		</script>
 

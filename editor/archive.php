@@ -47,8 +47,9 @@
 
 		$csv = fopen("sketches/playGNDarchive.csv", 'a') or die("can't open file");
 		$name = $_POST['name'];
+        $author = $_POST['author'];
 		$time = date('m/d/Y--H:i:s');
-	    $entry = $name . "," . $time . "," . $sketchdata ."\n";
+	    $entry = $name . "," . $author . "," . $time . "," . $sketchdata ."\n";
 	    fwrite($csv, $entry);
 		fclose($csv);
 
@@ -71,7 +72,7 @@
 
                     if (($list = fopen("sketches/playGNDarchive.csv", "r")) !== FALSE) {  
                         while (($data = fgetcsv($list, 10000, ",")) !== FALSE) {
-                            echo '<div class="item"><a href="localhost:8888/github/threejs_playGnd/editor/#B/'.htmlspecialchars( $data[2]).'">' . $data[0] . "</a> | ".$data[1]."</div>"; 
+                            echo '<a href="http://brangerbriz.net/labs/threejs_playGnd/editor/#B/'.htmlspecialchars( $data[3]).'" target="_blank"><div class="item">' . $data[0] . " &nbsp;&nbsp;[by]&nbsp;&nbsp; ".$data[1]." &nbsp;&nbsp;[on]&nbsp;&nbsp; ".$data[2]."</div></a>"; 
                         }
                         fclose($list);
                     }
@@ -80,18 +81,7 @@
         
     </div>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script>
-        var hov = false;
 
-        $('.item').on({
-            click: function() { 
-                var lnk = $(this).children().attr('href');
-                var a = alert(lnk);
-            }
-        });
-
-    </script>
     
 </body>
 </html>
