@@ -66,20 +66,36 @@
 						meshObj.make();
 						materialzGUI(meshObj.material);
 				});
-				m.add(meshObj,'openGeo').name('open_geo_cntrl');
-				m.add(meshObj,'openMat').name('open_mat_cntrl');
-				
-				m.add(meshObj,"texture").onChange(function(){				
-					meshObj.make(); 
-					if(matgui!=undefined){ matgui.destroy(); matgui = undefined; }
-					meshObj.openMat();
-				});
+				m.add(meshObj,'openGeo').name('OPEN_GEOMETRY_CNTRL');
+				m.add(meshObj,'openMat').name('OPEN_MATERIAL_CNTRL');
 
 				m.add(meshObj,"smooth").onChange(function(){				
 					meshObj.make(); 
 				});
-				m.add(meshObj,"castShadow").onChange(function(){
-					meshObj.make();
+				m.add(meshObj,"castShadow").onChange(function(v){
+					if(v==true){
+						renderer.shadowMapEnabled = true;
+						meshObj.make();
+						if(planeObj.togglePlane==true){planeObj.makePlane();}	
+						if(planeObj.toggleWireframe==true){ planeObj.makeWireframe(); }	
+						if(lights.AmbientLight==true){lights.makeAmbient();}		
+						if(lights.HemisphereLight==true){lights.makeHem();}				
+						if(lights.DirectionalLight==true){lights.makeDir();}				
+						if(lights.SpotLight1==true){lights.makeSpot1();}				
+						if(lights.SpotLight2==true){lights.makeSpot2();}				
+
+					} else {
+						renderer.shadowMapEnabled = false;
+						meshObj.make();
+						if(planeObj.togglePlane==true){planeObj.makePlane();}	
+						if(planeObj.toggleWireframe==true){ planeObj.makeWireframe(); }	
+						if(lights.AmbientLight==true){lights.makeAmbient();}		
+						if(lights.HemisphereLight==true){lights.makeHem();}				
+						if(lights.DirectionalLight==true){lights.makeDir();}				
+						if(lights.SpotLight1==true){lights.makeSpot1();}				
+						if(lights.SpotLight2==true){lights.makeSpot2();}	
+					}
+					updateEnviroCode();
 				});
 				m.add(meshObj,"scale",0.1,2).onChange(function(){
 					mesh.scale.x = mesh.scale.y = mesh.scale.z = meshObj.scale;
@@ -152,19 +168,19 @@
 					bgcode = v;
 					updateEnviroCode();
 				});
-				e.add(enviro,'renderShadows').onChange(function(v){
-					if(v==true){
-						renderer.shadowMapEnabled = true;
-						meshObj.make();
-						if(planeObj.togglePlane==true){planeObj.makePlane();}	
-						if(planeObj.toggleWireframe==true){ planeObj.makeWireframe(); }					
-					} else {
-						renderer.shadowMapEnabled = false;
-						if(planeObj.togglePlane==true){planeObj.makePlane();}	
-						if(planeObj.toggleWireframe==true){ planeObj.makeWireframe(); }	
-					}
-					updateEnviroCode();
-				});
+				// e.add(enviro,'renderShadows').onChange(function(v){
+				// 	if(v==true){
+				// 		renderer.shadowMapEnabled = true;
+				// 		meshObj.make();
+				// 		if(planeObj.togglePlane==true){planeObj.makePlane();}	
+				// 		if(planeObj.toggleWireframe==true){ planeObj.makeWireframe(); }					
+				// 	} else {
+				// 		renderer.shadowMapEnabled = false;
+				// 		if(planeObj.togglePlane==true){planeObj.makePlane();}	
+				// 		if(planeObj.toggleWireframe==true){ planeObj.makeWireframe(); }	
+				// 	}
+				// 	updateEnviroCode();
+				// });
 				e.add(enviro,'fog').onChange(function(v){
 					if(v==true){
 						enviro.ffar = 9000;
@@ -251,10 +267,7 @@
 					}
 					updateLightCode();
 				});
-				l.add(lights,'open').name('open_ctrlz');
-
-
-
+				l.add(lights,'open').name('OPEN_LIGHT_CONTROL');
 
 			}
 
@@ -315,6 +328,13 @@
 				matgui.add(meshObj,"sided",{FrontSide:0,BackSide:1,DoubleSide:2}).onChange(function(){				
 					meshObj.make(); 
 				});
+				if(v==1 || v==2 || v==3){
+					matgui.add(meshObj,"texture").onChange(function(){				
+						meshObj.make(); 
+						if(matgui!=undefined){ matgui.destroy(); matgui = undefined; }
+						meshObj.openMat();
+					});
+				}
 				if(meshObj.texture==true){
 					matgui.add(meshObj, 'txt', {white:0, mario:1,linen:2,crate:3,dots:4,rock_tile:5,water:6,wood:7}).onChange(function() {
 						meshObj.make();
@@ -324,7 +344,7 @@
 					});
 				}
 
-				matgui.add(meshObj,'closeMat').name('close_ctrlz');
+				matgui.add(meshObj,'closeMat').name('[X]-CLOSE');
 
 			}
 
@@ -487,7 +507,7 @@
 					});
 					geogui.add(meshObj,'make').name('randomize');
 				}
-				geogui.add(meshObj,'closeGeo').name('close_ctrlz');
+				geogui.add(meshObj,'closeGeo').name('[X]-CLOSE');
 
 			}
 
@@ -605,6 +625,6 @@
 				}
 
 
-				lightgui.add(lights,'close').name('close_ctrlz');
+				lightgui.add(lights,'close').name('[X]-CLOSE');
 
 			}

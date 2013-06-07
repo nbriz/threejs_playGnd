@@ -56,7 +56,7 @@
 				this.txtList = ['white.jpg','mario.jpg','linen.jpg','crate.jpg','dots.jpg','rock_tile.jpg','water.jpg','wood.jpg'];
 				this.txtRepeat = 1;
 				this.scale = 1;
-				this.posy = 100;
+				this.posy = 0;
 				this.rotx = 0;
 				this.roty = 0;
 				this.rotz = 0;
@@ -261,6 +261,7 @@
 					directionalLight.position.x = this.dx;
 					directionalLight.position.y = this.dy;
 					directionalLight.position.z = this.dz;
+					directionalLight.castShadow = true;
 					scene.add( directionalLight ); 
 				}
 				this.makeSpot1 = function() {

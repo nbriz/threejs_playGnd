@@ -16,7 +16,7 @@
 
 			function updateCnsl() {
 				var cnsl = document.getElementById('mcnsl').innerHTML = meshCode + enviroCode + lightCode;	
-				var objCnslDiv = document.getElementById('mcnsl'); objCnslDiv.scrollTop = objCnslDiv.scrollHeight;
+				// var objCnslDiv = document.getElementById('mcnsl'); objCnslDiv.scrollTop = objCnslDiv.scrollHeight;
 			}
 
 
@@ -124,7 +124,8 @@
 						ecode += "bg = document.body.style;<br>bg.background = '"+bgcode+"';<br><br>";
 					}
 
-					if(enviro.renderShadows == true){
+					// if(enviro.renderShadows == true){
+					if(mesh.castShadow==true){
 						ecode+= "renderer.shadowMapEnabled = true;<br><br>";
 					}
 
@@ -148,7 +149,7 @@
 				} else { lcHem = "";}
 
 				if(lights.DirectionalLight == true){
-					lcDir = "directionalLight = new THREE.DirectionalLight("+dec2hex(lights.dclr)+", "+lights.di+");<br>directionalLight.position.x = "+rnd(lights.dx)+";<br>directionalLight.position.y = "+rnd(lights.dy)+";<br>directionalLight.position.z = "+rnd(lights.dz)+";<br>scene.add( directionalLight );<br><br>";
+					lcDir = "directionalLight = new THREE.DirectionalLight("+dec2hex(lights.dclr)+", "+lights.di+");<br>directionalLight.position.x = "+rnd(lights.dx)+";<br>directionalLight.position.y = "+rnd(lights.dy)+";<br>directionalLight.position.z = "+rnd(lights.dz)+";<br>directionalLight.castShadow = true;<br>scene.add( directionalLight );<br><br>";
 				} else { lcDir = "";}				
 
 				if(lights.SpotLight1 == true){
