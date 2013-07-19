@@ -10,14 +10,24 @@
 				font-family: 'Lucida Grande', sans-serif;
 				font-size: 11px;
 			}
+
+  			a:link, a:visited{ text-decoration: none; color: #fff; }
+    		a:hover, a:active{ text-decoration: none; color: #e43f8c; outline: 0; border:0px; cursor: pointer; }
+
 			.menu {
 				position: absolute;
 				top:0px; left:0px;
 				height: 22px; width:100%;
-				color:#fff; background-color: #000;
-				font-size: 11px;
-				padding: 6px 0 0 10px;
+				color:#222; 
+				background-color: #000;
+				font-size: 13px;
+				font-family: 'Lucida Grande', Ariel, sans-serif;
+				padding: 6px 0 2px 10px;
+				margin-top: -2px;
 			}
+			.menu a { color:#777; }
+			.menu a:hover { color:#e43f8c; }
+
 
 			.meshConsole {
 				font-family: Consolas, monaco, monospace;
@@ -30,18 +40,28 @@
 				max-height: 89%;
 				overflow: scroll;
 			}
-   			
-   			a:link, a:visited{ text-decoration: none; color: #fff; }
-    		a:hover, a:active{ text-decoration: none; color: #e43f8c; outline: 0; border:0px; cursor: pointer; }
+
+			#popup {
+
+				position: absolute;
+				color:#fff;
+				padding: 20px 20px 20px 20px;
+				background-color: #000;
+				z-index: 99999999;
+				width: 340px;
+				left:50%; margin-left: -170px;
+				top:50%; margin-top: -100px;
+			}
 
     	</style>
 	</head>
 	<body>
 
 		<div class="menu">
-			<a href="../" style="margin-right:50px">goto_index</a>
-			<a href="../editor/indexb.html" target="_blank" style="margin-right:50px">new_editor</a>
-    		<a href="../editor/archive.php">goto_archive</a>
+			<a href="../" style="margin-right:50px;">_three.js playGnd</a>
+			<a href="../gui" style="margin-right:50px;color:#fff">[1] gui</a>
+			<a href="../editor/editor.html" target="_blank" style="margin-right:50px">[2] editor</a>
+    		<a href="../archive">[3] archive</a>
 		</div>
 
 
@@ -89,8 +109,15 @@
 				lights.makeHem();
 				lights.makeDir();
 
+				window.addEventListener( 'resize', onWindowResize, false );
+
 			}
 
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
 
 			function draw() {
 
@@ -106,8 +133,15 @@
 			setup();
 			draw();
 
+		</script>
 
-
+		
+		<script>
+			// FIREFOX SCROLLBARZ ...FUX'N ANNOYING
+			if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+				document.getElementById( 'mcnsl' ).style.width = '100%';
+				document.getElementById( 'mcnsl' ).style.overflowX = 'hidden';
+			}
 		</script>
 	</body>
 </html>

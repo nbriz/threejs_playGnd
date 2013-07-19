@@ -11,7 +11,6 @@
 				//											//
 				// -----------------------------------------
 
-
 				function lathePnts(n) {
 					var pnts = []; 
 					for ( var i = 0; i < n; i ++ ) { //n = 50 default
@@ -53,7 +52,7 @@
 				this.material = 0;
 				this.texture = false;
 				this.txt = 3;
-				this.txtList = ['white.jpg','mario.jpg','linen.jpg','crate.jpg','dots.jpg','rock_tile.jpg','water.jpg','wood.jpg'];
+				this.txtList = ['white.jpg','mario.jpg','linen.jpg','crate.jpg','dots.jpg','rock_tile.jpg','water.jpg','wood.jpg','brillo.jpg','soup.jpg'];
 				this.txtRepeat = 1;
 				this.scale = 1;
 				this.posy = 0;
@@ -66,8 +65,9 @@
 				// -- popUp matGUI
 				this.wireframe = false;
 				this.linewidth = 1;
+				this.transparent = false;
 				this.opacity = 1;
-				this.color = 0xffffff;
+				this.color = 0xdcdcdc;
 				this.ambient = 0xffffff;
 				this.emissive = 0x000000;
 				this.specular = 0x111111;
@@ -92,7 +92,7 @@
 				this.torusRS = 40;
 				this.torusTS = 40;
 				this.torusA = 2;
-				this.latheP = 50;
+				this.latheP = 26;
 				this.latheS = 20;
 				this.knotR = 100;
 				this.knotT = 40;
@@ -115,7 +115,7 @@
 				this.ringPS = 5;
 				this.ringTSt = 0;
 				this.ringTL = 2;
-				this.convexP = 40;
+				this.convexP = 9;
 
 				this.make = function(){
 					scene.remove(mesh); 
@@ -132,8 +132,13 @@
 						mesh.material.specular.setHex( dec2hex(this.specular) ); 
 						mesh.material.shininess = this.shininess;
 					}
-					if(this.texture==true){
+					if(this.texture==true && CUSTOM_TEXTURE==undefined){
 						map = THREE.ImageUtils.loadTexture('../texturez/'+this.txtList[this.txt]);
+						mesh.material.map = map;
+						map.wrapS = map.wrapT = THREE.RepeatWrapping;
+						map.repeat.set( this.txtRepeat, this.txtRepeat );
+					} else if(this.texture==true && CUSTOM_TEXTURE!=undefined){
+						map = THREE.ImageUtils.loadTexture('../texturez/proxy.php?url='+CUSTOM_TEXTURE);
 						mesh.material.map = map;
 						map.wrapS = map.wrapT = THREE.RepeatWrapping;
 						map.repeat.set( this.txtRepeat, this.txtRepeat );
@@ -143,7 +148,10 @@
 					else if(this.sided==2){ mesh.material.side = THREE.DoubleSide; }
 					mesh.material.wireframe = this.wireframe; 
 					mesh.material.wireframeLinewidth = this.linewidth;
-					mesh.material.opacity = this.opacity;
+					mesh.material.transparent = this.transparent;
+					if(this.transparent == true){
+						mesh.material.opacity = this.opacity;
+					}
 					mesh.scale.x = mesh.scale.y = mesh.scale.z = this.scale;
 					mesh.position.y = this.posy;
 					mesh.rotation.x = this.rotx; mesh.rotation.y = this.roty; mesh.rotation.z = this.rotz;
@@ -155,6 +163,37 @@
 				this.closeMat = function() { matgui.destroy(); matgui = undefined; }
 				this.openGeo = function() { if(geogui==undefined){ geometriezGUI(meshObj.geometry); } }
 				this.closeGeo = function() { geogui.destroy(); geogui = undefined; }
+				this.customTexture = function() { 
+
+					var popup = document.createElement( 'div' );
+						popup.id = "popup";
+
+					var field = document.createElement('input');	
+						field.id = "imageURL";
+						field.style.width = "250px";
+						field.value = 'paste a valid image url here';
+						field.onkeypress = function() {
+							CUSTOM_TEXTURE = field.value;
+							meshObj.make();
+							document.body.removeChild( popup );
+						}
+					popup.appendChild( field );
+
+					var button = document.createElement('button');
+				    	button.innerHTML = "add texture";
+				    	button.onclick = function(){
+				        	CUSTOM_TEXTURE = field.value;
+				        	meshObj.make();
+				        	document.body.removeChild( popup );
+				    	}
+					popup.appendChild( button );
+
+
+					document.body.appendChild( popup );
+
+					console.log('ran');
+
+				}
 
 				this.isConvex = false;
 			} meshObj = new MeshObj();	
@@ -173,7 +212,7 @@
 
 			function PlaneObj() {
 				this.togglePlane = false;
-				this.txtList = ['mario.jpg','linen.jpg','crate.jpg','dots.jpg','rock_tile.jpg','water.jpg','wood.jpg','white.jpg'];
+				this.txtList = ['mario.jpg','linen.jpg','crate.jpg','dots.jpg','rock_tile.jpg','water.jpg','wood.jpg','white.jpg','brillo.jpg','soup.jpg'];
 				this.texture = 7;
 				this.repeat = 80;
 				this.scale = 30;

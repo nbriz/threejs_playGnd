@@ -5,6 +5,7 @@
 				];
 			var geoList = [ "new THREE.CubeGeometry(", "new THREE.SphereGeometry(", "new THREE.IcosahedronGeometry(", "new THREE.OctahedronGeometry(", "new THREE.TetrahedronGeometry(", "new THREE.CylinderGeometry(", "new THREE.TorusGeometry(", "new THREE.TorusKnotGeometry(", "new THREE.LatheGeometry(", "new THREE.PlaneGeometry(", "new THREE.CircleGeometry(", "new THREE.RingGeometry(", "new THREE.ConvexGeometry("
 			];
+			var vecPoints = undefined;
 
 
 			var planeWireCode = "", planeCode = "", ecode = "";
@@ -25,42 +26,70 @@
 
 					if(meshObj.geometry==0){
 						geoProperties = rnd(meshObj.cubeW)+", "+rnd(meshObj.cubeH)+", "+rnd(meshObj.cubeD);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==1){
 						geoProperties = rnd(meshObj.sphereR)+", "+ rnd(meshObj.sphereSW)+", "+ rnd(meshObj.sphereSH);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==2){
 						geoProperties = rnd(meshObj.radius)+", "+rnd(meshObj.detail);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==3){
 						geoProperties = rnd(meshObj.radius)+", "+rnd(meshObj.detail);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==4){
 						geoProperties = rnd(meshObj.radius)+", "+rnd(meshObj.detail);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==5){
 						geoProperties = rnd(meshObj.cyliRT)+", "+ rnd(meshObj.cyliRB)+", "+ rnd(meshObj.cyliH )+", "+ meshObj.cyliRS+", "+ meshObj.cyliHS+", "+ meshObj.cyliOE;
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==6){
 						geoProperties = rnd(meshObj.torusR)+", "+ rnd(meshObj.torusT)+", "+Math.round(meshObj.torusRS)+", "+meshObj.torusTS+", "+ rnd(Math.PI*meshObj.torusA);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==7){
 						geoProperties = rnd(meshObj.knotR)+", "+rnd(meshObj.knotT)+", "+meshObj.knotRS+", "+meshObj.knotTS+", "+rnd(meshObj.knotP)+", "+rnd(meshObj.knotQ)+", "+rnd(meshObj.knotH);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==8){
-						geoProperties = lathePnts(meshObj.latheP)+", "+ meshObj.latheS;
+						// geoProperties = lathePnts(meshObj.latheP)+", "+ meshObj.latheS;
+						//////
+						geoProperties = "points, "+ meshObj.latheS;
+						vecPoints = "";
+						var objJson = JSON.stringify( lathePnts(meshObj.latheP) );
+						var obj = JSON.parse(objJson);
+						for(var i in obj){
+							vecPoints += "&nbsp;&nbsp;&nbsp;&nbsp;new THREE.Vector3( "+rnd(obj[i].x)+", "+rnd(obj[i].y)+", "+rnd(obj[i].z)+" ),<br>";
+						}
+
 					}
 					if(meshObj.geometry==9){
 						geoProperties = rnd(meshObj.planeW)+", "+ rnd(meshObj.planeH)+", "+meshObj.planeWS+", "+meshObj.planeHS;
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==10){
 						geoProperties = rnd(meshObj.circleR)+", "+ meshObj.circleS+", "+ meshObj.circleTS+", "+ Math.PI*rnd(meshObj.circleTL);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==11){
 						geoProperties = rnd(meshObj.ringIR)+", "+ rnd(meshObj.ringOR)+", "+ meshObj.ringTS+", "+ meshObj.ringPS+", "+ rnd(meshObj.ringTSt)+", "+ Math.PI*rnd(meshObj.ringTL);
+						vecPoints = undefined;
 					}
 					if(meshObj.geometry==12){
-						geoProperties = ranPnts(meshObj.convexP);
+						geoProperties = " points ";
+						vecPoints = "";
+						var objJson = JSON.stringify( ranPnts(meshObj.convexP) );
+						var obj = JSON.parse(objJson);
+						for(var i in obj){
+							vecPoints += "&nbsp;&nbsp;&nbsp;&nbsp;new THREE.Vector3( "+rnd(obj[i].x)+", "+rnd(obj[i].y)+", "+rnd(obj[i].z)+" ),<br>";
+						}
+
+						
 					}
 
 				matProperties = "";
@@ -80,12 +109,18 @@
 					if(meshObj.sided==1){ matProperties += ", side: THREE.BackSide" }
 					else if(meshObj.sided==2){ matProperties += ", side: THREE.DoubleSide" }
 					if(meshObj.wireframe==true){ matProperties += ", wireframe: true, wireframeLinewidth: "+rnd(meshObj.linewidth); }
-					if(meshObj.opacity<1){ matProperties += ", opacity: "+rnd(meshObj.opacity); }
+					if(meshObj.transparent==true){matProperties += ", transparent: true, opacity: "+rnd(meshObj.opacity);}
 
 				meshCode = "";
-
-					if(meshObj.texture==true){
+					if(vecPoints!=undefined){
+						meshCode += "var points = [<br>"
+						meshCode += vecPoints;
+						meshCode += "];<br><br>";
+					}
+					if(meshObj.texture==true && CUSTOM_TEXTURE==undefined){
 						meshCode += "map = THREE.ImageUtils.loadTexture('../texturez/"+meshObj.txtList[meshObj.txt]+"');<br>";
+					} else if(meshObj.texture==true && CUSTOM_TEXTURE!=undefined){
+						meshCode += "map = THREE.ImageUtils.loadTexture('../texturez/proxy.php?url="+CUSTOM_TEXTURE+"');<br>";
 					}
 					meshCode += "geometry = "+geoList[meshObj.geometry]+geoProperties+");<br>";
 					meshCode += "material = "+matList[meshObj.material]+matProperties+"});<br>";
@@ -145,19 +180,21 @@
 				} else { lcAmb = "";}
 
 				if(lights.HemisphereLight == true){
-					lcHem = "hemisphereLight = new THREE.HemisphereLight("+dec2hex(lights.hs)+", "+dec2hex(lights.hg)+", "+lights.hi+");<br>scene.add( hemisphereLight );<br><br>";
+					lcHem = "hemisphereLight = new THREE.HemisphereLight("+dec2hex(lights.hs)+", "+dec2hex(lights.hg)+", "+rnd(lights.hi)+");<br>scene.add( hemisphereLight );<br><br>";
 				} else { lcHem = "";}
 
 				if(lights.DirectionalLight == true){
-					lcDir = "directionalLight = new THREE.DirectionalLight("+dec2hex(lights.dclr)+", "+lights.di+");<br>directionalLight.position.x = "+rnd(lights.dx)+";<br>directionalLight.position.y = "+rnd(lights.dy)+";<br>directionalLight.position.z = "+rnd(lights.dz)+";<br>directionalLight.castShadow = true;<br>scene.add( directionalLight );<br><br>";
+					lcDir = "directionalLight = new THREE.DirectionalLight("+dec2hex(lights.dclr)+", "+rnd(lights.di)+");<br>directionalLight.position.set( "+rnd(lights.dx)+", "+rnd(lights.dy)+", "+rnd(lights.dz)+" );<br>directionalLight.castShadow = true;<br>scene.add( directionalLight );<br><br>";
 				} else { lcDir = "";}				
 
+				
+
 				if(lights.SpotLight1 == true){
-					lcSpot1 = "spotLight1 = new THREE.SpotLight( "+dec2hex(lights.s1clr)+", "+rnd(lights.s1i)+" );<br>spotLight1.position.x = "+rnd(lights.s1x)+";<br>spotLight1.position.y = "+rnd(lights.s1y)+";<br>spotLight1.position.z = "+rnd(lights.s1z)+";<br>spotLight1.castShadow = true;<br>spotLight1.shadowDarkness = "+rnd(lights.s1sd)+";<br>scene.add( spotLight1 );<br><br>";
+					lcSpot1 = "spotLight1 = new THREE.SpotLight( "+dec2hex(lights.s1clr)+", "+rnd(lights.s1i)+" );<br>spotLight1.position.set( "+rnd(lights.s1x)+", "+rnd(lights.s1y)+", "+rnd(lights.s1z)+" );<br>spotLight1.castShadow = true;<br>spotLight1.shadowDarkness = "+rnd(lights.s1sd)+";<br>scene.add( spotLight1 );<br><br>";
 				} else { lcSpot1 = "";}	
 
 				if(lights.SpotLight2 == true){
-					lcSpot2 = "spotLight2 = new THREE.SpotLight( "+dec2hex(lights.s2clr)+", "+rnd(lights.s2i)+" );<br>spotLight2.position.x = "+rnd(lights.s2x)+";<br>spotLight2.position.y = "+rnd(lights.s2y)+";<br>spotLight2.position.z = "+rnd(lights.s2z)+";<br>spotLight2.castShadow = true;<br>spotLight2.shadowDarkness = "+rnd(lights.s2sd)+";<br>scene.add( spotLight2 );<br><br>";
+					lcSpot2 = "spotLight2 = new THREE.SpotLight( "+dec2hex(lights.s2clr)+", "+rnd(lights.s2i)+" );<br>spotLight2.position.set( "+rnd(lights.s2x)+", "+rnd(lights.s2y)+", "+rnd(lights.s2z)+" );<br>spotLight2.castShadow = true;<br>spotLight2.shadowDarkness = "+rnd(lights.s2sd)+";<br>scene.add( spotLight2 );<br><br>";
 				} else { lcSpot2 = "";}	
 
 				lightCode = lcAmb + lcHem + lcDir + lcSpot1 + lcSpot2;

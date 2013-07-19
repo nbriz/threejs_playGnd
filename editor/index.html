@@ -157,7 +157,7 @@
 				top: 15px;
 				right: 30px;
 				text-align: right;
-
+				z-index: 99999999;
 			}
 
 			#popup {
@@ -168,12 +168,31 @@
 				padding: 20px 20px 20px 20px;
 				/*background-color: rgb(80,80,80);*/
 				background-color: #000;
-
+				z-index: 99999999;
 			}
 
 		</style>
 	</head>
 	<body>
+
+
+<!-- 		<h1>
+			<a href="http://brangerbriz.com" target="_blank"><img src="../images/spin2.gif"></a>
+			<a href="http://threejsplaygnd.brangerbriz.net"> _three.js playGnd</a>
+		<\/h1>
+		<br> 
+		built on the shoulders of these open source projects<br>
+		<a href="http://threejs.org/" target="_blank">three.js</a> 
+		+<br> 
+		<a href="http://github.com/mrdoob/htmleditor" target="_blank">HTML Editor</a>,
+		<a href="http://codemirror.net/" target="_blank">CodeMirror</a>, and
+		<a href="https://code.google.com/p/dat-gui/" target="_blank">dat.GUI</a> 
+		+<br>
+		inspired by the ideas/worx of<br>
+		<a href="http://hyperland.com/" target="_blank">Ted Nelson</a> and
+		<a href="http://www.mrdoob.com/" target="_blank">Mr.doob</a> -->
+
+
 		<div id="preview"></div>
 		<div id="editor"></div>
 		<div id="toolbar"></div>
@@ -198,8 +217,34 @@
 
 			//
 
+			console.log(window.location.hash);
+
+
 			var defaultCode = decode( 'pVRbT9swFH5Of8WheyCdghOQkKa2IG3QtZNAQ8BU7Wly4tPELLEzx6G0iP8+20mggT1MW9Um7rl85/Idn+ne+dez2+9XM8h0kZ8Ops3Lm2ZImXl70wI1hSSjqkJ9Mqz16uDD0CkqvcnRnrxYsg082pMX0+RnqmQt2EEic6nG8G7lPhOnLqhKuRhD1PyV96hWuVyPIeOMoXDSJwsedujTsM1kaqM0gRPFSw2VSk6GmdblOAxjRUWKKlZ8SwTqMKdxFepMId5VP8qcbuaChXetiBRckLtqeGqiOKj/RT1HjYmW6hXoC6o7e3wFPuzBs/Ua4zSH0YuAMjZHvcR4fnGJVUVT9EeuJfZ3TxUktEBFA6gSFBiAQsFQoZp0+hSloUttAiioRsVpHkCcy1ROBp2JYbEu4QRWtUg0lwL8kaHOsWHVS6Nac8HkmnAhUC0501kAi1fiBfI00w2JXRbGROAabhfXsxlxRVy3mraKZ0tikrjhW/RhaaFbLZNJXaDQxBJNaFka67OM58x/LpQwWcxytFadV9OSXuwrVFVpOsrv8cxpfTiOAliGiwAOzTeKor43KWXFbTPI1gAdR+10ui73kG+spKvm5WEbV1Db1cbsS2Go+6Z5XpFcUnaLD7pW6O8TEurmvA0dLSTlq/2RxQAAr+OsF9IMQvaJVjy5bLX+o401dgGfmlSsc0d9P98yM22btyr/8Mi0oXu0Vdg03gT03w7SaKcndlB967jbib/Nvl0L0UOzFwIzVwpXyhAxBq1q3BFccINkB3AMR22pXmEQ/ylfcJ5GPGiWTHchmKLrP98Hhb9qrPRHwQ2oUX22OfmNw27ljkkltTMilgEbqi85N2kRIdf+6H1EzAAeT7xB/040B7+72+1cjyY76bq7246fzcJvtDtrbBo2W9JsTbvHfwM=' );
 
+
+			var QueryString = function () {
+			  // This function is anonymous, is executed immediately and 
+			  // the return value is assigned to QueryString!
+			  var query_string = {};
+			  var query = window.location.search.substring(1);
+			  var vars = query.split("&");
+			  for (var i=0;i<vars.length;i++) {
+			    var pair = vars[i].split("=");
+			    	// If first entry with this name
+			    if (typeof query_string[pair[0]] === "undefined") {
+			      query_string[pair[0]] = pair[1];
+			    	// If second entry with this name
+			    } else if (typeof query_string[pair[0]] === "string") {
+			      var arr = [ query_string[pair[0]], pair[1] ];
+			      query_string[pair[0]] = arr;
+			    	// If third or later entry with this name
+			    } else {
+			      query_string[pair[0]].push(pair[1]);
+			    }
+			  } 
+			    return query_string;
+			} ();
 
 
 			var documents = [ { filename: 'webgl_sketch', filetype: 'text/plain', autoupdate: true, code: defaultCode } ];
@@ -227,6 +272,7 @@
 
 			}
 
+
 			// preview
 
 			var preview = document.getElementById( 'preview' );
@@ -238,6 +284,7 @@
 			var editor = CodeMirror( document.getElementById( 'editor' ), {
 
 				value: documents[ 0 ].code,
+				readOnly: true,
 				mode: 'text/html',
 				lineNumbers: true,
 				matchBrackets: true,
@@ -247,17 +294,6 @@
 
 			} );
 
-			editor.on( 'change', function() {
-
-				// buttonSave.style.display = '';
-				// buttonDownload.style.display = 'none';
-
-				if ( documents[ 0 ].autoupdate === false ) return;
-
-				clearTimeout( interval );
-				interval = setTimeout( update, 500 );
-
-			} );
 
 			var element = editor.getWrapperElement();
 
@@ -265,94 +301,98 @@
 
 			var toolbar = document.getElementById( 'toolbar' );
 
-			var buttonUpdate = document.createElement( 'button' );
-			buttonUpdate.className = 'button';
 
-			var checkbox = document.createElement( 'input' );
-			checkbox.type = 'checkbox';
-
-			if ( documents[ 0 ].autoupdate === true ) checkbox.checked = true;
-
-			checkbox.style.margin = '-4px 4px -4px 0px';
-			checkbox.addEventListener( 'click', function ( event ) {
-
-				event.stopPropagation();
-
-				documents[ 0 ].autoupdate = documents[ 0 ].autoupdate === false;
-
-				localStorage.codeeditor = JSON.stringify( documents );
-
-			}, false );
-			buttonUpdate.appendChild( checkbox );
-			buttonUpdate.appendChild( document.createTextNode( 'update' ) );
-
-			buttonUpdate.addEventListener( 'click', function ( event ) {
-
-				update();
-
-			}, false );
-			toolbar.appendChild( buttonUpdate );
-
+			// SHOW CODE BUTTON
 			var buttonHide = document.createElement( 'button' );
 			buttonHide.className = 'button';
 			buttonHide.textContent = 'hide code';
 			buttonHide.addEventListener( 'click', function ( event ) {
 
 				toggle();
+				menu.style.display = menu.style.display === '' ? 'none' : '';
 
 			}, false );
 			toolbar.appendChild( buttonHide );
 
-			var buttonMenu = document.createElement( 'button' );
-			buttonMenu.className = 'button';
-			buttonMenu.innerHTML = '<svg width="8" height="8"><path d="M 0,1.5 8,1.5 M 0,4.5 8,4.5 M 0,7.5 8,7.5"></svg>';
-			buttonMenu.addEventListener( 'click', function ( event ) {
-
-				menu.style.display = menu.style.display === '' ? 'none' : '';
-
-			}, false );
-			toolbar.appendChild( buttonMenu );
 
 			toolbar.appendChild( document.createElement( 'br' ) );
+
 
 			var menu = document.createElement( 'span' );
 			menu.style.display = 'none';
 			toolbar.appendChild( menu );
 
-			// var buttonSave = document.createElement( 'button' );
-			// buttonSave.className = 'button';
-			// buttonSave.textContent = 'd/l';
-			// buttonSave.addEventListener( 'click', function ( event ) {
 
-			// 	save();
-
-			// }, false );
-			// menu.appendChild( buttonSave );
-
-			// var buttonDownload = document.createElement( 'a' );
-			// buttonDownload.className = 'button';
-			// buttonDownload.style.display = 'none';
-			// buttonDownload.download = 'index.html';
-			// buttonDownload.textContent = 'download';
-			// menu.appendChild( buttonDownload );
+			// MENU
 
 			var buttonShare = document.createElement( 'button' );
 			buttonShare.className = 'button';
 			buttonShare.textContent = 'share';
 			buttonShare.addEventListener( 'click', function ( event ) {
 
-				var dom = document.createElement( 'input' );
-				dom.value = 'http://brangerbriz.net/labs/threejs_playGnd/editor/#B/' + encode( editor.getValue() );
-				dom.style.width = '400px';
-				dom.style.padding = '5px';
-				dom.style.marginTop = '20px';
-				dom.style.border = '0px';
+				var div = document.createElement( 'div' );
 
-				popup.set( dom );
+				if(QueryString.id==undefined){
+					var dom = document.createElement( 'div' );
+					dom.innerHTML = 'to get embed code visit the <a href="http://threejsplaygnd.brangerbriz.net/archive/" target="_blank">three.js playGnd archive</a>';
+					dom.style.padding = '5px';
+					dom.style.border = '0px';
+					div.appendChild( dom );
+				} else {
+					var dom = document.createElement( 'div' );
+					dom.innerHTML = 'short url';
+					dom.style.padding = '5px';
+					dom.style.border = '0px';
+					div.appendChild( dom );
+
+					var surl = document.createElement( 'input' );
+					surl.value = 'http://threejsplaygnd.brangerbriz.net/s/?id='+QueryString.id.substring(2);
+					surl.style.width = '400px';
+					surl.style.padding = '5px';
+					surl.style.marginTop = '20px';
+					surl.style.border = '0px';
+					div.appendChild( surl );				
+
+					var dom = document.createElement( 'div' );
+					dom.innerHTML = 'long url';
+					dom.style.padding = '5px';
+					dom.style.border = '0px';
+					dom.style.marginTop = '15px';
+					div.appendChild( dom );
+
+					var url = document.createElement( 'input' );
+					url.value = 'http://brangerbriz.net/labs/threejs_playGnd/editor/#B/' + encode( editor.getValue() );
+					url.style.width = '400px';
+					url.style.padding = '5px';
+					url.style.marginTop = '20px';
+					url.style.border = '0px';
+					div.appendChild( url );
+
+					var dom = document.createElement( 'div' );
+					dom.innerHTML = 'embed code';
+					dom.style.padding = '5px';
+					dom.style.border = '0px';
+					dom.style.marginTop = '15px';
+					div.appendChild( dom );
+
+					var embed = document.createElement( 'input' );
+					embed.value = '<iframe width="640" height="360" src="http://brangerbriz.net/labs/threejs_playGnd/editor/#B/' + encode( editor.getValue() ) +'"></iframe>';
+					embed.style.width = '400px';
+					embed.style.padding = '5px';
+					embed.style.marginTop = '20px';
+					embed.style.border = '0px';
+					div.appendChild( embed );
+				}
+
+
+				
+
+				popup.set( div );
 				popup.show();
 
-				dom.focus();
-				dom.select();
+				surl.focus();
+				surl.select();
+
 
 			}, false );
 			menu.appendChild( buttonShare );
@@ -361,11 +401,11 @@
 			// Changed RESET BUTTON TO 'FORK' ------------------------------------------ ../n!ck
 			var buttonFork = document.createElement( 'button' );
 			buttonFork.className = 'button';
-			buttonFork.textContent = 'Fork';
+			buttonFork.textContent = 'Remix';
 			buttonFork.addEventListener( 'click', function ( event ) {
 
 				var dom = document.createElement( 'div' );
-				dom.innerHTML = '...working on it';
+				dom.innerHTML = 'Hey! If you\'re new to the threejs_playGnd <a href="http://threejsplaygnd.brangerbriz.net/" target="_blank">click here first</a> to learn what it\'s all about. <br><br> Otherwise, <a href="http://brangerbriz.net/labs/threejs_playGnd/editor/editor.html?id='+QueryString.id+'&data='+hash.substr( 2 )+'" target="_blank">click here</a> to "fork" this sketch and edit your own variation';
 				dom.style.width = '400px';
 				dom.style.padding = '5px';
 				dom.style.marginTop = '20px';
@@ -390,7 +430,7 @@
 				dom.style.padding = '5px';
 				dom.style.border = '0px';
 				dom.style.textAlign = 'center';
-				dom.innerHTML = '<h1><a href="https://github.com/nbriz/threejs_playGnd">three.js playGnd</a><\/h1><br>codeCredz <a href="http://threejs.org/" target="_blank">three.js</a> +<br> <a href="https://github.com/mrdoob/htmleditor" target="_blank">Mr.doob\'s HTML Editor</a> +<br><a href="http://codemirror.net/" target="_blank">CodeMirror ' + CodeMirror.version + '</a> and <a href="http://esprima.org/" target="_blank">Esprima ' + esprima.version + '</a>.';
+				dom.innerHTML = '<h1><div style="float:left;margin-top:-60px"><a href="http://brangerbriz.com" target="_blank"><img src="../images/spin2.gif"></a></div><div style="margin-top:50px;margin-right:90px;"><a href="http://threejsplaygnd.brangerbriz.net"> _three.js playGnd</a></div><\/h1><br><br><br><br>built on the shoulders of these open source projects<br><a href="http://threejs.org/" target="_blank">three.js</a> ++ <a href="http://github.com/mrdoob/htmleditor" target="_blank">HTML Editor</a>, <a href="http://codemirror.net/" target="_blank">CodeMirror</a>, and <a href="https://code.google.com/p/dat-gui/" target="_blank">dat.GUI</a><br><br>inspired by the ideas/worx of<br><a href="http://hyperland.com/" target="_blank">Ted Nelson</a> and <a href="http://www.mrdoob.com/" target="_blank">Mr.doob</a>';
 				popup.set( dom );
 				popup.show();
 
@@ -478,52 +518,7 @@
 			} )();
 
 
-			// events
-
-			document.addEventListener( 'drop', function ( event ) {
-
-				event.preventDefault();
-				event.stopPropagation();
-
-				var file = event.dataTransfer.files[ 0 ];
-
-				documents[ 0 ].filename = file.name;
-				documents[ 0 ].filetype = file.type;
-
-				var reader = new FileReader();
-
-				reader.onload = function ( event ) {
-
-					editor.setValue( event.target.result );
-
-				};
-
-				reader.readAsText( file );
-
-			}, false );
-
-			document.addEventListener( 'keydown', function ( event ) {
-
-				if ( event.keyCode === 83 && ( event.ctrlKey === true || event.metaKey === true ) ) {
-
-					event.preventDefault();
-					save();
-
-				}
-
-				if ( event.keyCode === 13 && ( event.ctrlKey === true || event.metaKey === true ) ) {
-
-					update();
-
-				}
-
-				if ( event.keyCode === 27 ) {
-
-					toggle();
-
-				}
-
-			}, false );
+			
 
 
 			// actions
@@ -532,17 +527,12 @@
 
 				var value = editor.getValue();
 
-				if ( validate( value ) ) {
-
-					// remove previous iframe
 
 					if ( preview.children.length > 0 ) {
 
 						preview.removeChild( preview.firstChild );
 
 					}
-
-					//
 
 					var iframe = document.createElement( 'iframe' );
 					iframe.style.width = '100%';
@@ -561,125 +551,8 @@
 					content.write( value );
 					content.close();
 
-				}
-
 			};
 
-			var errorLines = [];
-			var widgets = [];
-
-			var validate = function ( value ) {
-
-				return editor.operation( function () {
-
-					while ( errorLines.length > 0 ) {
-
-						editor.removeLineClass( errorLines.shift(), 'background', 'errorLine' );
-
-					}
-
-					for ( var i = 0; i < widgets.length; i ++ ) {
-
-						editor.removeLineWidget( widgets[ i ] );
-
-					}
-
-					widgets.length = 0;
-
-					// remove html
-
-					var string = '\n';
-					var lines = value.split( '\n' );
-					var lineCurrent = 0, lineTotal = lines.length;
-
-					while ( lineCurrent < lineTotal && lines[ lineCurrent ].indexOf( '<script>' ) === -1 ) {
-
-						string += '\n';
-						lineCurrent ++;
-
-					}
-
-					var lineStart = lineCurrent ++;
-
-					while ( lineCurrent < lineTotal && lines[ lineCurrent ].indexOf( '<\/script>' ) === -1 ) {
-
-						string += lines[ lineCurrent ] + '\n';
-						lineCurrent ++;
-
-					}
-
-					//
-
-					try {
-
-						var result = esprima.parse( string, { tolerant: true } ).errors;
-
-						for ( var i = 0; i < result.length; i ++ ) {
-
-							var error = result[ i ];
-
-							var message = document.createElement( 'div' );
-							message.className = 'esprima-error';
-							message.textContent = error.message.replace(/Line [0-9]+: /, '');
-
-							var lineNumber = error.lineNumber - 1;
-							errorLines.push( lineNumber );
-
-							editor.addLineClass( lineNumber, 'background', 'errorLine' );
-
-							var widget = editor.addLineWidget(
-								lineNumber,
-								message
-							);
-
-							widgets.push( widget );
-
-						}
-
-					} catch ( error ) {
-
-						var message = document.createElement( 'div' );
-						message.className = 'esprima-error';
-						message.textContent = error.message.replace(/Line [0-9]+: /, '');
-
-						var lineNumber = error.lineNumber - 1;
-						errorLines.push( lineNumber );
-
-						editor.addLineClass( lineNumber, 'background', 'errorLine' );
-
-						var widget = editor.addLineWidget(
-							lineNumber,
-							message
-						);
-
-						widgets.push( widget );
-
-					}
-
-					return errorLines.length === 0;
-
-				});
-
-			};
-
-			var save = function () {
-
-				documents[ 0 ].code = editor.getValue();
-
-				localStorage.codeeditor = JSON.stringify( documents );
-
-				var blob = new Blob( [ editor.getValue() ], { type: documents[ 0 ].filetype } );
-				var objectURL = URL.createObjectURL( blob );
-
-				// buttonDownload.href = objectURL;
-
-				var date = new Date();
-				// buttonDownload.download = documents[ 0 ].filename;
-
-				// buttonSave.style.display = 'none';
-				// buttonDownload.style.display = '';
-
-			};
 
 			var toggle = function () {
 
@@ -688,7 +561,7 @@
 					buttonHide.textContent = 'show code';
 
 					element.style.display = 'none';
-					buttonUpdate.style.display = 'none';
+					menu.style.display = '';
 					buttonShare.display = 'none';
 
 				} else {
@@ -696,7 +569,7 @@
 					buttonHide.textContent = 'hide code';
 
 					element.style.display = '';
-					buttonUpdate.style.display = '';
+					menu.style.display = 'none';
 					buttonShare.display = '';
 
 				}

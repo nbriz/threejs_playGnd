@@ -44,14 +44,22 @@
     ::selection { background: #e43f8c; color: #fff; text-shadow: none; }
     
 
-    header {
-    	background-image: url('../texturez/dots.jpg'); 
-    	color:#f4f4f4; font-size: 64px; 
+    .title {
+    	position: absolute;
+		top: 385px;
+		left: 118px;
+    	/*background-image: url('../texturez/dots.jpg'); */
+    	color:#f4f4f4; font-size: 49px; 
 		font-family: LogoFont,"Arial Black", "Arial Bold", Gadget, sans-serif;;
 		word-spacing: 3px;
 		margin-bottom: 50px;
 		padding: 40px 40px 55px 40px;
 		text-align: right;
+    }
+    .beta {
+    	position: absolute;
+    	right:40px; top: 85px;
+    	font-size: 18px;
     }
     #underscore{
     	border-bottom: 10px solid #e43f8c;
@@ -73,7 +81,9 @@
     }
 
     ul {
-    	margin:40px;
+    	position: absolute;
+    	top:40px;
+    	left:40px;
     }
 
 	a { 
@@ -88,10 +98,9 @@
 		cursor: pointer;
 	}
 	a:hover { 
-		background-color: #fff; color: #e43f8c;
+		background-color: rgba(228,63,140,0.6); color: #fff;
 	}
-
-
+	
     @media only screen and (max-width: 640px) {
 	}
 
