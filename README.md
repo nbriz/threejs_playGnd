@@ -19,7 +19,8 @@ I mean 'ethic' not in the traditional 'moral' sense, but in the general sense: a
 
 In this first section you generate code for basic three.js geometry using a GUI (graphical user interface). Traditionally GUI’s ‘obfuscate’ code. In the interest of making things more accessible they hide the code, and as a consequence compromise digital literacy. In the _playGnd the GUI is still concerned with accessibility, but in a way that augments the code rather than obfuscating it.
 
-![threejs playGnd tutorial 1 (experimental new-media art perspective)](http://threejsplaygnd.brangerbriz.net/texturez/dots.jpg "Part 1")
+![threejs playGnd tutorial 1 (experimental new-media art perspective)](http://brangerbriz.net/labs/threejs_playGnd/images/youtube_thumb1.jpg "Part 1")   
+[threejs_playGnd - Tutorial 1](http://youtu.be/k4gCqk6tkbE)
 
 
 ### [2] threejs [realtime] editor
@@ -29,7 +30,8 @@ In this first section you generate code for basic three.js geometry using a GUI 
 
 Traditionally we don’t tend to think of our tools as being ‘political’, but software isn’t neutral. It reflex and imposes the politix of the folks who create it (some, like Galloway, argue it is itself ideology). The _playGnd is no less political and no less bias than any other digital tool, but it stems from a different ethic (an experimental new-media art ethic). For this reason you’ll notice that the editor is a little bit different from the convention. First, it’s built into the browser + shares the same space as your sketch, which allows for immediate feedback >> you can experiment, tinker, play in ‘realtime.’ Second, the editor includes a ‘snippets’ menu to encourage copying + pasting + modifying + collaging code. 
 
-![threejs playGnd tutorial 2 (experimental new-media art perspective)](http://threejsplaygnd.brangerbriz.net/texturez/dots.jpg "Part 2")
+![threejs playGnd tutorial 2 (experimental new-media art perspective)](http://brangerbriz.net/labs/threejs_playGnd/images/youtube_thumb2.jpg "Part 2")   
+[threejs_playGnd - Tutorial 2](http://youtu.be/OBmONPNeuF8)
 
 
 ### [3] sketches archive
@@ -37,7 +39,8 @@ Traditionally we don’t tend to think of our tools as being ‘political’, bu
 
 after you finish working on a sketch in the editor you can ‘archive_it’, which adds your sketch to the xanalogically inspired archive. You can view all the other sketches saved from the _playGnd in the archives as well as remix (fork + edit your own variation of) any sketch in the archive.
 
-![threejs playGnd tutorial 3 (experimental new-media art perspective)](http://threejsplaygnd.brangerbriz.net/texturez/dots.jpg "Part 3")
+![threejs playGnd tutorial 3 (experimental new-media art perspective)](http://brangerbriz.net/labs/threejs_playGnd/images/youtube_thumb3.jpg "Part 3")   
+[threejs_playGnd - Tutorial 3](http://youtu.be/5YViNWXyUz4)
 
 
 > "The detailed forms of algorithmic interaction and play required today of the computer-using public is, in my mind, so exactly akin to writing code that the division between the two must certainly be ascribed to other ends. Perhaps it has to do with the creation and maintenance of another class of priest-like specialists[...]" - [Alexander Galloway, The Interface Effect (2012)](http://www.polity.co.uk/book.asp?ref=9780745662527)
@@ -61,6 +64,7 @@ AsciiEffect.js ( [by zz85](https://github.com/zz85) )
 CSS3DRenderer.js (by [mr doob](http://mrdoob.com/) )  
 Detector.js (by [alteredq](http://alteredqualia.com/) + [mr doob](http://mrdoob.com/) )  
 ShaderToon.js (by [alteredq](http://alteredqualia.com/) + [mr doob](http://mrdoob.com/) )  
+proxy.php (by [Abdul Qabiz](http://www.abdulqabiz.com/) )    
 and tween.js (by [sole](https://github.com/sole) )  
 
 ++ inspired by the ideas/worx of  

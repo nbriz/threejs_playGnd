@@ -3,15 +3,21 @@
 if(isset($_POST['sketchCode'])) {
 
 	$con=mysqli_connect("myhost","myuser","mypassw","mybd");
+	//$con=mysqli_connect("myhost","myuser","mypassw","mybd");
 	// Check connection
 	if (mysqli_connect_errno())
 	  {
 	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 	  }
 
+	$sketchName = mysqli_real_escape_string($con, $_POST[sketchName]);
+	$userName = mysqli_real_escape_string($con, $_POST[userName]);
+	$sketchCode = mysqli_real_escape_string($con, $_POST[sketchCode]);
+	$isForkOf = mysqli_real_escape_string($con, $_POST[isForkOf]);
+
 	$sql="INSERT INTO sketches (sketchName, userName, sketchCode, isForkOf)
 	VALUES
-	('$_POST[sketchName]','$_POST[userName]','$_POST[sketchCode]','$_POST[isForkOf]')";
+	('$sketchName','$userName','$sketchCode','$isForkOf')";
 
 	if (!mysqli_query($con,$sql))
 	  {
@@ -156,6 +162,7 @@ if(isset($_POST['sketchCode'])) {
 				<?php
 
 					$con=mysqli_connect("myhost","myuser","mypassw","mybd");
+					//$con=mysqli_connect("myhost","myuser","mypassw","mybd");
 					// Check connection
 					if (mysqli_connect_errno()) {
 						echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -181,6 +188,7 @@ if(isset($_POST['sketchCode'])) {
 
 				if(isset($_POST['sketchCode'])) {
 					$con=mysqli_connect("myhost","myuser","mypassw","mybd");
+					//$con=mysqli_connect("myhost","myuser","mypassw","mybd");
 					// Check connection
 					if (mysqli_connect_errno()) {
 					  echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -694,6 +702,16 @@ if(isset($_POST['sketchCode'])) {
 				colHeight = objArrays[curX].length; // for 'down' conditional
 			
 			}	
+
+		</script>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-6098550-26', 'brangerbriz.net');
+		  ga('send', 'pageview');
 
 		</script>
 		

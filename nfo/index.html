@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    
+	    <title>_playGnd</title>
+	    <meta name="description" content="description">
+	    <meta name="author" content="name">
+	    <meta name="keywords" content="keywords">
+	    <link rel="image_src" href="http://www.domain.com/images/FaceBookthumb.jpg">
+    	<link rel="icon" type="image/x-icon"  href="favicon.ico">
+
+    	<style>
+
+    	    @font-face { font-family: LogoFont; src: url('../fonts/ITCAvantGardePro-Bold.otf'); }
+			
+			body{ margin: 0; padding: 0;}
+
+			.menu {
+				position: absolute;
+				top:0px; left:0px;
+				height: 22px; width:100%;
+				color:#222; 
+				background-color: #000;
+				font-size: 13px;
+				font-family: 'Lucida Grande', Ariel, sans-serif;
+				padding: 6px 0 2px 10px;
+				margin-top: -2px;
+				z-index: 1000;
+			}
+			.menu a { color:#777; text-decoration:none; }
+			.menu a:hover { color:#e43f8c; }
+
+
+			.container {
+				width:790px;
+				margin: 100px auto;
+			}
+
+			.sidemenu {
+				padding-bottom: 5px;
+			}
+			.sidemenu a {
+				background-color: #000;
+				padding: 10px; width: 150px;
+				color: #fff;
+				font-family: Helvetica, arial, freesans, clean, sans-serif;
+				display: inline-block;
+				text-decoration: none;
+			}
+			.sidemenu a:hover {
+				background-color: #e43f8c;
+				color:#fff;
+			}
+
+			.main {
+				background-color: #fff;
+				border: 1px solid #000;
+				padding: 30px;
+				font-size: 15px;
+				line-height: 1.7;
+				color: #333333;
+				font-family: Helvetica, arial, freesans, clean, sans-serif;
+				width:790px;
+				display: inline-block;
+			}
+			.main blockquote {
+				border-left: 4px solid #DDD;
+				padding: 0 15px;
+				color: #777;
+				margin: 15px 0;
+			}
+			.main a { color:#e43f8c; }
+			.main a:hover { text-decoration: underline;}
+
+			    .title {
+			    	position: relative;
+					top: 0px;
+					left: 0px;
+			    	font-size: 49px; 
+					font-family: LogoFont,"Arial Black", "Arial Bold", Gadget, sans-serif;;
+					word-spacing: 3px;
+					margin-bottom: 50px;
+					/*padding: 40px 40px 55px 40px;*/
+					text-align: right;
+			    }
+			    .beta {
+			    	position: absolute;
+			    	right:0px; top: 80px;
+			    	font-size: 18px;
+			    }
+			    #underscore{
+			    	border-bottom: 10px solid #e43f8c;
+					padding-right: 19px;
+			    }
+
+			/*790 - 170*/
+
+    	</style>
+	</head>
+	<body>
+
+		<div class="menu">
+			<a href="../" style="margin-right:50px;">_three.js playGnd</a>
+			<a href="../gui" style="margin-right:50px">[1] gui</a>
+			<a href="../editor/editor.html" target="_blank" style="margin-right:50px">[2] editor</a>
+    		<a href="../archive" >[3] archive</a>
+		</div>
+
+
+		<div class="container">
+
+			<div class="sidemenu">
+				<a href="https://github.com/nbriz/threejs_playGnd" target="_blank">Source Code</a>
+				<a href="https://github.com/nbriz/threejs_playGnd/issues" target="_blank">Issues/ Questions</a>
+			</div>
+			
+			<div class="main">
+				
+
+				<div class="title">
+					<span id="underscore">&nbsp;</span>three.js playGnd
+					<span class="beta"> &lt; beta &gt; </span>
+				</div>
+
+				<br>
+
+
+				<blockquote>
+				  <p>"...Ideology is 'modeled' in software" - <a href="http://www.polity.co.uk/book.asp?ref=9780745662527">Alexander Galloway, The Interface Effect (2012)</a></p>
+
+				<p>"the computer world deals with imaginary, arbitrary made up stuff that was all made up by somebody. Everything you see was designed and put there by someone. [...] There are so many ideas to care about, and with ideas comes the politics of ideas." - <a href="https://www.youtube.com/watch?v=KdnGPQaICjk">Ted Nelson, The Myth of Technology/Computers for Cynics(2012)</a></p>
+				</blockquote>
+
+				<h4>the threejs_playGnd is a digital literacy (agency) artware + ntro to three.js/webGL (interactive/generative 3D in the browser) which is modeled after an experimental new-media art ethic.</h4>
+
+				<p>I mean 'ethic' not in the traditional 'moral' sense, but in the general sense: as a set of principles for practice in accordance with some convention. In this case the 'practice' is an experimental new-media art one; rather than traditional approaches to programming centered around 'best practices' + conventions (stability, structure, hierarchy, clear goals, debugging) the _playGnd is instead modeled on new-media ethics (experimenting, playing, copying+pasting, remixing, sharing). You learn to + make webGL sketches (using the three.js library) by ‘considerately fux’n around’. The _playGnd has three sections (+this page): the [1] graphix[toCode] interface, the [2] realtime editor, &amp;&amp; the [3] sketches archive</p>
+
+				<br><br><br><br>
+
+				<h3>[1] graphix[toCode] interface</h3>
+
+				<blockquote>
+				  <p>"Software is the medium that is not a medium. [...] Code is never viewed as it is. Instead code must be compiled, interpreted, parsed, and otherwise driven into hiding by still larger globs of code. Hence the principle of obfuscation." - <a href="http://www.polity.co.uk/book.asp?ref=9780745662527">Alexander Galloway, The Interface Effect (2012)</a></p>
+				</blockquote>
+
+				<p>In this first section you generate code for basic three.js geometry using a GUI (graphical user interface). Traditionally GUI’s ‘obfuscate’ code. In the interest of making things more accessible they hide the code, and as a consequence compromise digital literacy. In the _playGnd the GUI is still concerned with accessibility, but in a way that augments the code rather than obfuscating it.</p>
+
+				<p>
+					<iframe width="560" height="315" src="//www.youtube.com/embed/k4gCqk6tkbE" frameborder="0" allowfullscreen></iframe>
+				</p>
+
+				<br><br>
+
+				<h3>[2] threejs [realtime] editor</h3>
+
+				<blockquote>
+				  <p>"An iPhone is not technology, it's packaging and conventions. [...] Your software choices are like any addiction or religion, they want your loyalty and they want your money and they want you to think like them. [...] it's culture politics masquerading as technology." - <a href="https://www.youtube.com/watch?v=KdnGPQaICjk">Ted Nelson, The Myth of Technology/Computers for Cynics(2012)</a></p>
+				</blockquote>
+
+				<p>Traditionally we don’t tend to think of our tools as being ‘political’, but software isn’t neutral. It reflects and imposes the politix of the folks who create it (some, like Galloway, argue it is itself ideology). The _playGnd is no less political and no less bias than any other digital tool, but it stems from a different ethic (an experimental new-media art ethic). For this reason you’ll notice that the editor is a little bit different from the conventional. First, it’s built into the browser + shares the same space as your sketch, which allows for immediate feedback >> you can experiment, tinker, play in ‘realtime.’ Second, the editor includes a ‘snippets’ menu to encourage copying + pasting + modifying + collaging code. </p>
+
+				<p>
+					<iframe width="560" height="315" src="//www.youtube.com/embed/OBmONPNeuF8" frameborder="0" allowfullscreen></iframe>
+				</p>
+
+				<br><br>
+
+				<h3>[3] sketches archive</h3>
+
+				<p>after you finish working on a sketch in the editor you can ‘archive_it’, which adds your sketch to the xanalogically inspired archive. You can view all the other sketches saved from the _playGnd in the archives as well as remix (fork + edit your own variation of) any sketch in the archive.</p>
+
+				<p>
+					<iframe width="560" height="315" src="//www.youtube.com/embed/5YViNWXyUz4" frameborder="0" allowfullscreen></iframe>
+				</p>
+
+				<blockquote>
+				  <p>"The detailed forms of algorithmic interaction and play required today of the computer-using public is, in my mind, so exactly akin to writing code that the division between the two must certainly be ascribed to other ends. Perhaps it has to do with the creation and maintenance of another class of priest-like specialists[...]" - <a href="http://www.polity.co.uk/book.asp?ref=9780745662527">Alexander Galloway, The Interface Effect (2012)</a></p>
+
+				<p>"Guardianship of the computer can no longer be left to a priesthood. I see this as just one example of the creeping evil of Professionalism" - <a href="http://en.wikipedia.org/wiki/Computer_Lib_/_Dream_Machines">Ted Nelson, Computer Lib/Dream Machines (1974)</a></p>
+				</blockquote>
+
+				<br><Br><br>
+
+				<h3>credz + shoutOutz</h3>
+
+				<p>the threejs_playGnd was developed by the same practice/ethics it encourages + is both literally &amp;&amp; conceptually a remix/collage of worx &amp;&amp; ideas.</p>
+
+				<p>built on the shoulders of these open source projects: <br />
+				<a href="http://threejs.org/" target="_blank">three.js</a> (most importantly) <br />
+				++ <br />
+				<a href="http://github.com/mrdoob/htmleditor" target="_blank">HTML Editor</a> (heavily modified version), <br />
+				<a href="http://codemirror.net/" target="_blank">CodeMirror</a>, <br />
+				and <a href="https://code.google.com/p/dat-gui/" target="_blank">dat.GUI</a>  </p>
+
+				<p>++ also makes use of <br />
+				AsciiEffect.js ( <a href="https://github.com/zz85" target="_blank">by zz85</a> ) <br />
+				CSS3DRenderer.js (by <a href="http://mrdoob.com/" target="_blank">mr doob</a> ) <br />
+				Detector.js (by <a href="http://alteredqualia.com/" target="_blank">alteredq</a> + <a href="http://mrdoob.com/" target="_blank">mr doob</a> ) <br />
+				ShaderToon.js (by <a href="http://alteredqualia.com/" target="_blank">alteredq</a> + <a href="http://mrdoob.com/" target="_blank">mr doob</a> ) <br />
+				proxy.php (by <a href="http://www.abdulqabiz.com/" target="_blank">Abdul Qabiz</a> )<br>
+				and tween.js (by <a href="https://github.com/sole">sole</a> )  </p>
+
+				<p>++ inspired by the ideas/worx of <br />
+				<a href="http://en.wikipedia.org/wiki/Katie_Salen" target="_blank">Katie Salen</a>, <br />
+				<a href="http://www.maryflanagan.com/" target="_blank">Mary Flanagan</a>, <br />
+				<a href="http://cultureandcommunication.org/galloway/" target="_blank">Alexander Galloway</a>, <br />
+				<a href="http://en.wikipedia.org/wiki/Martin_Heidegger" target="_blank">Martin Heidegger</a>, <br />
+				<a href="http://en.wikipedia.org/wiki/Marshall_McLuhan" target="_blank">Marshall McLuhan</a>, <br />
+				and most importantly <br />
+				<a href="http://hyperland.com/" target="_blank">Ted Nelson</a> &amp;&amp; <a href="http://mrdoob.com/" target="_blank">mr doob</a>  </p>
+
+				<br><Br>
+
+				<center>
+				<a href="http://brangerbriz.com" target="_blank" target="_blank">branger_briz </a> | <a href="http://www.scribd.com/doc/4056835/Distribution-Religion" target="_blank" target="_blank">copy&lt;it&gt;right</a> 2013 
+				</center>
+
+
+
+
+			</div>
+
+		</div>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
+		<script src="js/three.min.js"></script>
+		<script src="js/Detector.js"></script>
+		<script>
+
+			
+			var hi=1, h=0;
+			function bgHue() {
+				h+=hi;
+				if(h>=360){ h=0; }
+				var bgh = document.body.style;
+				bgh.background =  "hsl("+h+",50%, 50%)";
+			} 
+			setInterval(bgHue,50);
+
+		</script>
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-6098550-26', 'brangerbriz.net');
+		  ga('send', 'pageview');
+
+		</script>
+		
+	</body>
+</html>
